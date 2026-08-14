@@ -1,18 +1,17 @@
 import mercadopago
 import datetime
 
-PLANOS = {PLANOS = {
+PLANOS = {
     "7_dias": {"valor": 11.90, "dias": 7},
     "15_dias": {"valor": 19.90, "dias": 15},
     "30_dias": {"valor": 29.90, "dias": 30},
-    # aliases para compatibilidade com main.py
+    # Alias - seu main.py usa 7d, 15d, 30d
     "7d": {"valor": 11.90, "dias": 7},
     "15d": {"valor": 19.90, "dias": 15},
     "30d": {"valor": 29.90, "dias": 30},
     "7": {"valor": 11.90, "dias": 7},
     "15": {"valor": 19.90, "dias": 15},
     "30": {"valor": 29.90, "dias": 30},
-},
 }
 
 def gerar_pix_mp(token, telegram_id, plano_key):
@@ -20,8 +19,13 @@ def gerar_pix_mp(token, telegram_id, plano_key):
     try:
         sdk = mercadopago.SDK(token)
         
-        plano = PLANOS.get(plano_key)
+        # Converte 30d -> 30_dias se precisar
+        mapeamento = {"7d": "7_dias", "15d": "15_dias", "30d": "30_dias", "7": "7_dias", "15": "15_dias", "30": "30_dias"}
+        chave_real = mapeamento.get(plano_key, plano_key)
+        
+        plano = PLANOS.get(chave_real)
         if not plano:
+            print(f"Plano {plano_key} nao encontrado, usando 7_dias")
             plano = PLANOS["7_dias"]
 
         email_pagador = f"cliente.{telegram_id}@gmail.com"
@@ -54,6 +58,8 @@ def gerar_pix_mp(token, telegram_id, plano_key):
 
         transaction_data = pagamento.get("point_of_interaction", {}).get("transaction_data", {})
         
+        print(f"PIX GERADO COM SUCESSO! ID: {pagamento['id']}")
+
         return {
             "id": pagamento["id"],
             "qr_code": transaction_data.get("qr_code"),
