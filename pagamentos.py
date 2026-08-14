@@ -1,10 +1,18 @@
 import mercadopago
 import datetime
 
-PLANOS = {
+PLANOS = {PLANOS = {
     "7_dias": {"valor": 11.90, "dias": 7},
     "15_dias": {"valor": 19.90, "dias": 15},
     "30_dias": {"valor": 29.90, "dias": 30},
+    # aliases para compatibilidade com main.py
+    "7d": {"valor": 11.90, "dias": 7},
+    "15d": {"valor": 19.90, "dias": 15},
+    "30d": {"valor": 29.90, "dias": 30},
+    "7": {"valor": 11.90, "dias": 7},
+    "15": {"valor": 19.90, "dias": 15},
+    "30": {"valor": 29.90, "dias": 30},
+},
 }
 
 def gerar_pix_mp(token, telegram_id, plano_key):
