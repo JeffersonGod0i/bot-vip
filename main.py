@@ -18,13 +18,22 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         [InlineKeyboardButton("⭐ 15 DIAS - R$ 14,90", callback_data="plano_15_14.90_anastacia")],
         [InlineKeyboardButton("👑 30 DIAS - R$ 19,90", callback_data="plano_30_19.90_anastacia")],
     ]
-    # manda foto + texto
-    await context.bot.send_photo(
-        chat_id=update.effective_chat.id,
-        photo="https://i.imgur.com/8Km9tLL.jpg", # troca por uma foto sua
-        caption="Entre agora no meu VIP privado 😈\nEscolhe seu plano abaixo:",
-        reply_markup=InlineKeyboardMarkup(keyboard)
+    caption = (
+        "🔞 VIP DA ANASTÁCIA - ACESSO LIBERADO NA HORA\n\n"
+        "Oi amor, sou eu 🐰 Finalmente liberei meu VIP no Telegram\n\n"
+        "O que vai ter lá dentro:\n"
+        "✅ Conteúdos novos TODO DIA sem censura\n"
+        "✅ Meus packs completos (vermelho e preto que você viu)\n"
+        "✅ Chat privado comigo\n\n"
+        "👇 Escolhe seu plano e entra agora:"
     )
+    with open("anastacia.jpg", "rb") as foto:
+        await context.bot.send_photo(
+            chat_id=update.effective_chat.id,
+            photo=foto,
+            caption=caption,
+            reply_markup=InlineKeyboardMarkup(keyboard)
+        ))
 
 # 2. Quando clica no plano - GERA PIX
 async def botao_plano(update: Update, context: ContextTypes.DEFAULT_TYPE):
