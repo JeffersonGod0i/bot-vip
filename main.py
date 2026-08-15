@@ -4,8 +4,7 @@ import asyncio
 from flask import Flask, request
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes
-from pagamentos import gerar_pix, sdk  # seu pagamentos.py
-
+from pagamentos import gerar_pix, sdk
 # --- CONFIGURAÇÃO ---
 TOKEN = os.getenv("TELEGRAM_TOKEN")
 CANAL_ANASTACIA_ID = int(os.getenv("CANAL_ANASTACIA_ID"))  # -100... da Anastácia
