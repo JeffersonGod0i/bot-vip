@@ -32,7 +32,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "👇 Escolhe seu plano e entra agora:"
     )
     try:
-        with open("anastacia.jpg", "rb") as foto:
+       with open("teaser_vermelho.jpg", "rb") as foto:
             await context.bot.send_photo(
                 chat_id=update.effective_chat.id,
                 photo=foto,
