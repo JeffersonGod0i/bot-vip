@@ -1,7 +1,6 @@
 import os
 import mercadopago
-
-sdk = mercadopago.SDK(os.getenv("MP_ACCESS_TOKEN"))
+sdk = mercadopago.SDK(os.getenv("MP_ACCESS_TOKEN") or os.getenv("MP_TOKEN"))
 
 def gerar_pix(valor, telegram_id, descricao="VIP"):
     payment_data = {
@@ -13,7 +12,6 @@ def gerar_pix(valor, telegram_id, descricao="VIP"):
     }
     result = sdk.payment().create(payment_data)
     payment = result["response"]
-    
     return {
         "id": payment["id"],
         "qr_code": payment["point_of_interaction"]["transaction_data"]["qr_code"],
