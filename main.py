@@ -12,15 +12,17 @@ CANAL_CARROS_ID = int(os.getenv("CANAL_CARROS_ID", "0"))
 
 app_flask = Flask(__name__)
 
-# 1. /start - mostra os planos
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
         [InlineKeyboardButton("🔥 7 DIAS - R$ 11,90", callback_data="plano_7_11.90_anastacia")],
         [InlineKeyboardButton("⭐ 15 DIAS - R$ 14,90", callback_data="plano_15_14.90_anastacia")],
         [InlineKeyboardButton("👑 30 DIAS - R$ 19,90", callback_data="plano_30_19.90_anastacia")],
     ]
-    await update.message.reply_text(
-        "Escolhe seu plano e entra agora:",
+    # manda foto + texto
+    await context.bot.send_photo(
+        chat_id=update.effective_chat.id,
+        photo="https://i.imgur.com/8Km9tLL.jpg", # troca por uma foto sua
+        caption="Entre agora no meu VIP privado 😈\nEscolhe seu plano abaixo:",
         reply_markup=InlineKeyboardMarkup(keyboard)
     )
 
