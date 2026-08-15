@@ -6,7 +6,7 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes
 from pagamentos import gerar_pix, sdk
 # --- CONFIGURAÇÃO ---
-TOKEN = os.getenv("TELEGRAM_TOKEN")
+TOKEN = os.getenv("TELEGRAM_TOKEN") or os.getenv("BOT_TOKEN") or os.getenv("TOKEN")
 CANAL_ANASTACIA_ID = int(os.getenv("CANAL_ANASTACIA_ID"))  # -100... da Anastácia
 CANAL_CARROS_ID = int(os.getenv("CANAL_CARROS_ID", "0"))
 
